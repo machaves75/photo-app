@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📸 PhotoApp — Câmera + LocalStorage</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>📸 PhotoApp</h1>
+    <p class="hint">Tire fotos, ordene por arrastar, filtre por data e exporte backup.</p>
+  </header>
+
+  <main>
+    <!-- Seção Câmera -->
+    <section class="card">
+      <h2>1. Câmera</h2>
+      <div class="camera-wrap">
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="canvas" style="display:none;"></canvas>
+      </div>
+      <div class="row">
+        <button id="btnStartCam" class="btn primary">Ligar câmera</button>
+        <button id="btnCapture" class="btn success" disabled>📷 Tirar foto</button>
+        <button id="btnStopCam" class="btn danger" disabled>Parar</button>
+      </div>
+      <p id="camStatus" class="status"></p>
+    </section>
+
+    <!-- Seção Filtros / Backup -->
+    <section class="card">
+      <h2>2. Filtros e Backup</h2>
+      <div class="row">
+        <label>Data inicial: <input type="date" id="filterFrom" /></label>
+        <label>Data final: <input type="date" id="filterTo" /></label>
+        <button id="btnClearFilter" class="btn">Limpar filtro</button>
+      </div>
+      <div class="row">
+        <button id="btnExport" class="btn primary">⬇️ Exportar backup (.json)</button>
+        <label class="btn file-btn">
+          ⬆️ Importar backup
+          <input type="file" id="importFile" accept="application/json" hidden />
+        </label>
+        <button id="btnServerBackup" class="btn">☁️ Enviar ao servidor</button>
+        <button id="btnClearAll" class="btn danger">🗑️ Apagar tudo</button>
+      </div>
+      <p id="stats" class="status"></p>
+    </section>
+
+    <!-- Galeria -->
+    <section class="card">
+      <h2>3. Galeria (arraste para ordenar)</h2>
+      <div id="gallery" class="gallery"></div>
+      <p id="emptyMsg" class="status">Nenhuma foto ainda. Tire a primeira! 🚀</p>
+    </section>
+  </main>
+
+  <!-- Modal de visualização -->
+  <div id="modal" class="modal hidden">
+    <span id="modalClose" class="modal-close">&times;</span>
+    <img id="modalImg" alt="Foto ampliada" />
+    <p id="modalMeta" class="modal-meta"></p>
+  </div>
+</body>
+</html>
